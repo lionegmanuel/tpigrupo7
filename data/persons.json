@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Manuel",
+        "lastname": "Lione",
+        "type": "client"
+    },
+    {
+        "id": 10,
+        "name": "Agostina",
+        "lastname": "Pons",
+        "type": "client"
+    },
+    {
+        "id": 13,
+        "name": "Gustavo",
+        "lastname": "Lione",
+        "type": "client"
+    },
+    {
+        "id": 19,
+        "name": "cha",
+        "lastname": "cha",
+        "type": "client"
+    }
+]

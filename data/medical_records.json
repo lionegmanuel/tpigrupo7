@@ -1,0 +1,10 @@
+[
+    {
+        "pet": "Loki Lione",
+        "consult_date": "505050",
+        "diagnosis": "Se le coloc\u00f3 la Pipeta",
+        "treatment": "tratamiento de prueba - esto es una prueba",
+        "require_vaccine": "NO",
+        "id": 3
+    }
+]

@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "name": "tratamiento de prueba",
+        "description": "esto es una prueba",
+        "duration": 2,
+        "require_vaccine": "NO"
+    }
+]
