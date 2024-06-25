@@ -92,6 +92,7 @@ class MedicalRecordView:
                 if not pet_records:
                     print("\nNo hay fichas médicas registradas para esta mascota.\n")
                 else:
+                    print('\nResultado: ')
                     for record in pet_records:
                         print(record)
             else:
