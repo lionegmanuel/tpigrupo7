@@ -30,8 +30,8 @@ class AppointmentView:
 
     def add_appointment(self):
         try:
-            pet_id = int(input("ID de la mascota para agendar una cita: "))
-            client_id = int(input("ID del cliente para agendar la cita: "))
+            pet_id = self.validate_integer_input(input("ID de la mascota para agendar una cita: "))
+            client_id = self.validate_integer_input(input("ID del cliente para agendar la cita: "))
             date = input("Fecha de la cita (formato DD/MM/AAAA): ")
             hour = input("Hora de la cita (formato HH:MM): ")
             self.controller.add_appointment(pet_id, client_id, date, hour)
@@ -40,7 +40,7 @@ class AppointmentView:
 
     def modify_appointment(self):
         try:
-            appointment_id = int(input("ID de la cita a modificar: "))
+            appointment_id = self.validate_integer_input(input("ID de la cita a modificar: "))
             new_date = input("Nueva fecha de la cita (formato DD/MM/AAAA): ")
             new_hour = input("Nueva hora de la cita (formato HH:MM): ")
             self.controller.modify_appointment(appointment_id, new_date, new_hour)
@@ -49,7 +49,7 @@ class AppointmentView:
 
     def delete_appointment(self):
         try:
-            appointment_id = int(input("ID de la cita a eliminar: "))
+            appointment_id = self.validate_integer_input(input("ID de la cita a eliminar: "))
             self.controller.delete_appointment(appointment_id)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -65,3 +65,26 @@ class AppointmentView:
 
     def show_invalid_option(self):
         print("Opción inválida. Por favor, ingrese una opción válida.")
+
+    def validate_integer_input(self, prompt):
+            while True:
+                try:
+                    input = self.validate_non_empty_input(prompt)
+                    return int(input)
+                except ValueError:
+                    print("\n¡ERROR!\n\tIngrese un Valor Correcto.\n ")
+
+    def validate_alphabetic_input(self, prompt):
+        while True:
+            input = self.validate_non_empty_input(prompt)
+            if input.replace(" ", "").isalpha():
+                return input
+            else:
+                print("\nEntrada inválida. \n\tPor favor, Ingrese Carácteres Válidos.\n")
+    def validate_non_empty_input(self, prompt):
+        while True:
+            input_str = input(prompt)
+            if input_str.strip():
+                return input_str
+            else:
+                print("\n¡ERROR!\nCampo Vacío.\n\tIngrese el Valor correspondiente solicitado.\n")

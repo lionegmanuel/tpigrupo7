@@ -37,7 +37,7 @@ class BreedView:
     def modify_breed(self):
         try:
             self.controller.display_breeds()
-            breed_id = int(input("ID de la raza a modificar: "))
+            breed_id = self.validate_integer_input("ID de la raza a modificar: ")
             new_name = input("Nuevo nombre de la raza: ")
             self.controller.modify_breed(breed_id, new_name)
         except ValueError:
@@ -45,10 +45,33 @@ class BreedView:
 
     def delete_breed(self):
         try:
-            breed_id = int(input("ID de la raza a eliminar: "))
+            breed_id = self.validate_integer_input("ID de la raza a eliminar: ")
             self.controller.delete_breed(breed_id)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
 
     def display_breeds(self):
         self.controller.display_breeds()
+    
+    def validate_integer_input(self, prompt):
+            while True:
+                try:
+                    input = self.validate_non_empty_input(prompt)
+                    return int(input)
+                except ValueError:
+                    print("\n¡ERROR!\n\tIngrese un Valor Correcto.\n ")
+
+    def validate_alphabetic_input(self, prompt):
+        while True:
+            input = self.validate_non_empty_input(prompt)
+            if input.replace(" ", "").isalpha():
+                return input
+            else:
+                print("\nEntrada inválida. \n\tPor favor, Ingrese Carácteres Válidos.\n")
+    def validate_non_empty_input(self, prompt):
+        while True:
+            input_str = input(prompt)
+            if input_str.strip():
+                return input_str
+            else:
+                print("\n¡ERROR!\nCampo Vacío.\n\tIngrese el Valor correspondiente solicitado.\n")

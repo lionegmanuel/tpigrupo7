@@ -62,11 +62,11 @@ class NavigationController:
     def internal_option_management(self, choice):
         match choice:
             case '1':
-                self.manageBreeds() #ready
+                self.manageBreeds() 
             case '2':
-                self.managePets() #ready
+                self.managePets()
             case '3':
-                self.managePersons() #ready
+                self.managePersons() 
             case '4':
                 self.manageDiagnosis()
             case '5':
