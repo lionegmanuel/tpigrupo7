@@ -36,18 +36,18 @@ class ConsultView:
 
     def add_consult(self):
         try:
-            pet_name = input("Ingrese el nombre de la Mascota: ")
-            breed_name = input('Ingrese el nombre de la Raza de la Mascota: ')
-            veterinarian_name = input("Ingrese el nombre del veterinario: ")
+            pet_name = self.validate_alphabetic_input("Ingrese el nombre de la Mascota: ")
+            breed_name = self.validate_alphabetic_input('Ingrese el nombre de la Raza de la Mascota: ')
+            veterinarian_name = self.validate_alphabetic_input("Ingrese el nombre del veterinario: ")
             veterinaria_specialization = input('Especialización del Veterinario/a (En caso de no contar, dejar en Blanco): ')
             print('Ingrese los siguientes Datos del Dueño de la Mascota (Nombre, Apellido y Teléfono de Contacto):')
-            owner_name = input('\t=> ')
-            owner_last_name = input('\t=> ')
-            owner_phone = input('\t=> ')
-            diagnosis_information = input(f'Ingrese a Continuación la Información y Datos del Diagnóstico correspondiente a la Mascota "{pet_name}": \n\t=> ')
-            treatment_name = input('Ingrese el Nombre del Tratamiento a Asignar: ')
-            treatment_description = input('Descripción mas Detallada del Tratamiento: ')
-            treatment_duration = int(input('Duración Total del Tratamiento: (Días) '))
+            owner_name = self.validate_alphabetic_input('\t=> ')
+            owner_last_name = self.validate_alphabetic_input('\t=> ')
+            owner_phone = self.validate_integer_input('\t=> ')
+            diagnosis_information = self.validate_non_empty_input(f'Ingrese a Continuación la Información y Datos del Diagnóstico correspondiente a la Mascota "{pet_name}": \n\t=> ')
+            treatment_name = self.validate_alphabetic_input('Ingrese el Nombre del Tratamiento a Asignar: ')
+            treatment_description = self.validate_alphabetic_input('Descripción mas Detallada del Tratamiento: ')
+            treatment_duration = self.validate_integer_input('Duración Total del Tratamiento: (Días) ')
             is_require_vaccine = '0'
             while(is_require_vaccine.lower() != 's' or is_require_vaccine.lower() != 'n'):
                 is_require_vaccine = input('¿El tratamiento requiere Vacunación? (S/N): ')
@@ -57,21 +57,21 @@ class ConsultView:
                         response = input('El tratamiento requiere mas de una Vacuna? (S/N): ')
                         if (response.lower() == 's'):
                             vaccines = [] #list of vaccines object type
-                            amount_of_vaccines = int(input('Ingrese la Cantidad Total de Vacunas necesarias para este Tratamiento: '))
+                            amount_of_vaccines = self.validate_integer_input('Ingrese la Cantidad Total de Vacunas necesarias para este Tratamiento: ')
                             print('')
                             self.controller.vaccines_petition()
                             print(f'A continuación, ingrese el ID correspondiente de la vacuna a Registrar para dicho Tratamiento, para un total de "{amount_of_vaccines}" vacunas.\n')
                             for c in range(amount_of_vaccines):
-                                current_id_vaccine = int(input(f'Vacuna N° {c+1} (ID): '))
+                                current_id_vaccine = self.validate_integer_input(f'Vacuna N° {c+1} (ID): ')
                                 current_result = self.controller.vaccines_find(current_id_vaccine)
                                 while not current_result:
-                                    current_id_vaccine = input(f'¡ERROR!\nLa Vacuna Solicitada no Está Registrada.\nVacuna N° {c+1} (ID): ')
+                                    current_id_vaccine = self.validate_integer_input(f'¡ERROR!\nLa Vacuna Solicitada no Está Registrada.\nVacuna N° {c+1} (ID): ')
                                 vaccines.append(current_result)
                         break
                 break    
 
             owner = Client(owner_name, owner_last_name, owner_phone)
-            reason = input("Ingrese el motivo de la consulta: ")
+            reason = self.validate_alphabetic_input("Ingrese el motivo de la consulta: ")
             breed = Breed(breed_name)
             pet = Pet(name=pet_name, specie="Perro", breed=breed, owner=owner)
             veterinarian = Veterinarian(veterinarian_name, "-", "General" if veterinaria_specialization == '' else veterinaria_specialization)
@@ -84,7 +84,7 @@ class ConsultView:
 
     def find_consult_by_id(self):
         try:
-            consult_id = int(input('Ingrese el ID de la consulta que desesa buscar: '))
+            consult_id = self.validate_integer_input('Ingrese el ID de la consulta que desesa buscar: ')
             #validar ID
             consult_result = self.controller.find_consult_by_id(consult_id)
             if consult_result: 
@@ -96,7 +96,7 @@ class ConsultView:
 
     def delete_consult(self):
         try:
-            consult_id = int(input("Ingrese el ID de la consulta a eliminar: "))
+            consult_id = self.validate_integer_input("Ingrese el ID de la consulta a eliminar: ")
             self.controller.deleteConsult(consult_id)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
