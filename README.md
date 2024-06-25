@@ -1,6 +1,6 @@
-# Sistema de Gestión de Clínica Veterinaria
+# EliteSoft
 
-Este proyecto representa un sistema integral de gestión para clínicas veterinarias desarrollado en Python. La implementación de este sistema ofrece numerosas ventajas y beneficios que hacen que sea una herramienta esencial para la administración eficiente de una clínica veterinaria.
+Representación de un sistema integral de gestión para clínicas veterinarias, desarrollado 100% en Python sin extras, frameworks ni librerías agregadas. Como objetivo principal está el desarrollo de una herramienta esencial y básica para la administración eficiente de una clínica veterinaria, sin descartar actualizaciónes constantes y adaptaciónes específicas, sea cual sea el contexto.
 
 ## Implementación del Sistema
 
