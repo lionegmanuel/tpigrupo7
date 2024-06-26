@@ -36,3 +36,5 @@ class PersonController:
 
     def display_persons(self):
         self.person_manager.display_persons()
+    def find_person_by_name(self, name):
+        return self.person_manager.find_person_by_name(name)

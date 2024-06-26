@@ -22,3 +22,5 @@ class BreedController:
 
     def display_breeds(self):
         return self.breed_manager.display_breeds()
+    def find_breed_by_name(self, name):
+        return self.breed_manager.find_breed_by_name(name)

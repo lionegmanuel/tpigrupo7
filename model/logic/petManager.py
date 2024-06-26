@@ -25,7 +25,7 @@ class PetManager:
             with open(self.file_path, 'r') as file:
                 pets_data = json.load(file)
                 for current_pet in pets_data:
-                    current_owner = self.personManager.find_person_by_name(current_pet['owner'])
+                    current_owner = self.personManager.find_person_by_first_name(current_pet['owner'])
                     current_breed = self.breedManager.find_breed_by_name(current_pet['breed'])
                     pet = Pet(current_pet['name'], current_pet['specie'], current_breed, current_owner, current_pet['id'])
                     current_pets.append(pet)
@@ -102,7 +102,6 @@ class PetManager:
     def delete_pet(self, id: int):
         deleted_pet = self.find_pet_by_id(id)
         if deleted_pet:
-            deleted_pet.get_owner().get_pet_list().remove(deleted_pet)
             self.pets.remove(deleted_pet)
             self.delete_pet_from_file(deleted_pet)
             print('\nMascota Eliminada Correctamente.\n')
@@ -120,10 +119,16 @@ class PetManager:
             if current_pet.get_id() == id:
                 return current_pet
         return None
+    def find_pet_by_name(self, name):
+        for current_pet in self.pets:
+            if current_pet.get_name().lower().strip() == name.lower().strip():
+                return current_pet
+        return None
 
     def display_pets(self):
         if not self.pets:
             print('\nNo hay Mascotas Registradas.\n')
         else:
+            print('\nListado de Mascotas Registradas:\n')
             for pet in self.pets:
                 print(f"\n{pet}")

@@ -5,7 +5,7 @@ class PersonView:
         
     def show_main_menu(self):
         while True:
-            print("\n---Gestión de Mascotas---\n")
+            print("\n---Gestión de Personas---\n")
             print("1. Agregar Persona")
             print("2. Modificar Persona")
             print("3. Eliminar Persona")
@@ -31,11 +31,15 @@ class PersonView:
         try:
             person_name = self.validate_alphabetic_input("Nombre de la nueva persona: ")
             person_lastname = self.validate_alphabetic_input("Apellido de la nueva persona: ")
-            type_of_person = self.validate_alphabetic_input("Tipo de Persona (Cliente / Veterinario): ")
-            if type_of_person.lower() == 'cliente': type_of_person = 'client'
-            elif type_of_person.lower() == 'veterinario': type_of_person = 'veterinarian'
-            else: type_of_person = ''
-            self.controller.add_person(person_name, person_lastname, type_of_person)
+            full_name = person_name.strip() + ' ' + person_lastname.strip()
+            if self.controller.find_person_by_name(full_name) is not None:
+                print('\nLa Persona ya se encuentra Registrada.\n')
+            else:
+                type_of_person = self.validate_alphabetic_input("Tipo de Persona (Cliente / Veterinario): ")
+                if type_of_person.lower() == 'cliente': type_of_person = 'client'
+                elif type_of_person.lower() == 'veterinario': type_of_person = 'veterinarian'
+                else: type_of_person = ''
+                self.controller.add_person(person_name, person_lastname, type_of_person)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
 

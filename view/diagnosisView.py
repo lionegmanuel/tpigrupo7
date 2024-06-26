@@ -41,9 +41,15 @@ class DiagnosisView:
             self.controller.display_diagnoses()
             print('')
             diagnosis_id = self.validate_integer_input("ID del diagnóstico a modificar: ")
-            new_name = self.validate_alphabetic_input("Nuevo nombre de la mascota (deje en blanco para no modificar): ")
-            new_information = self.validate_alphabetic_input("Nueva información del diagnóstico (deje en blanco para no modificar): ")
-            self.controller.modify_diagnosis(diagnosis_id, new_name, new_information)
+            current_diagnosis = self.controller.find_by_id(diagnosis_id)
+            if (current_diagnosis):
+                new_name = input("Nuevo nombre de la mascota (Puede dejar en blanco para no modificar): ")
+                new_information = input("Nueva información del diagnóstico (Puede dejar en blanco para no modificar): ")
+                if ((new_name == '' or new_name == ' ' or new_name.strip().lower() == current_diagnosis.get_name().strip().lower()) and (new_information == '' or new_information == ' ' or new_information.strip().lower() == current_diagnosis.get_information().strip().lower())):
+                    print('No se Ingresó Ningun dato adicional para el Diagnóstico Actual. No se puede realizar modificaciones.')
+                    return
+                self.controller.modify_diagnosis(diagnosis_id, new_name, new_information)
+            else: print('\nEl Diagnóstico Solicitado No fue Encontrado. \n')
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
 

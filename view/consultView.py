@@ -37,47 +37,66 @@ class ConsultView:
     def add_consult(self):
         try:
             pet_name = self.validate_alphabetic_input("Ingrese el nombre de la Mascota: ")
+            pet_specie = self.validate_alphabetic_input('Especie de la Mascota (Perro, Gato, etc.): ')
             breed_name = self.validate_alphabetic_input('Ingrese el nombre de la Raza de la Mascota: ')
-            veterinarian_name = self.validate_alphabetic_input("Ingrese el nombre del veterinario: ")
-            veterinaria_specialization = input('Especialización del Veterinario/a (En caso de no contar, dejar en Blanco): ')
+            if self.controller.verify_breed(breed_name) is not None:
+                breed = self.controller.verify_breed(breed_name)
+            else:
+                print('\nLa Raza ingresada No está Registrada. Se realizará el Registro de la misma.\n')
+                breed = Breed(breed_name)    
+            veterinarian_name = self.validate_alphabetic_input("Ingrese el nombre COMPLETO del veterinario: ")
+            if self.controller.verify_veterinarian(veterinarian_name) is not None and self.controller.verify_veterinarian(veterinarian_name).get_type() == 'veterinarian':
+                veterinarian = self.controller.verify_veterinarian(veterinarian_name)
+            else: 
+                veterinaria_specialization = input('Especialización del Veterinario/a (En caso de no contar, dejar en Blanco): ')
+                veterinarian = Veterinarian(veterinarian_name, "-", "General" if veterinaria_specialization == '' else veterinaria_specialization)
             print('Ingrese los siguientes Datos del Dueño de la Mascota (Nombre, Apellido y Teléfono de Contacto):')
             owner_name = self.validate_alphabetic_input('\t=> ')
             owner_last_name = self.validate_alphabetic_input('\t=> ')
-            owner_phone = self.validate_integer_input('\t=> ')
+            full_owner_name = owner_name.strip() + ' ' + owner_last_name.strip() 
+            if self.controller.verify_client(full_owner_name) is not None and self.controller.verify_client(full_owner_name).get_type() == 'client':
+                print('\nEl cliente ya está Registrado en el Sistema.\n')
+                owner = self.controller.verify_client(full_owner_name)
+            else: 
+                owner_phone = self.validate_integer_input('\t=> ')
+                owner = Client(owner_name, owner_last_name, owner_phone) 
             diagnosis_information = self.validate_non_empty_input(f'Ingrese a Continuación la Información y Datos del Diagnóstico correspondiente a la Mascota "{pet_name}": \n\t=> ')
             treatment_name = self.validate_alphabetic_input('Ingrese el Nombre del Tratamiento a Asignar: ')
-            treatment_description = self.validate_alphabetic_input('Descripción mas Detallada del Tratamiento: ')
-            treatment_duration = self.validate_integer_input('Duración Total del Tratamiento: (Días) ')
-            is_require_vaccine = '0'
-            while(is_require_vaccine.lower() != 's' or is_require_vaccine.lower() != 'n'):
-                is_require_vaccine = input('¿El tratamiento requiere Vacunación? (S/N): ')
-                if (is_require_vaccine.lower() == 's'):
-                    response = '0'
-                    while response.lower() != 's' or response.lower() != 'n':
-                        response = input('El tratamiento requiere mas de una Vacuna? (S/N): ')
-                        if (response.lower() == 's'):
-                            vaccines = [] #list of vaccines object type
-                            amount_of_vaccines = self.validate_integer_input('Ingrese la Cantidad Total de Vacunas necesarias para este Tratamiento: ')
-                            print('')
-                            self.controller.vaccines_petition()
-                            print(f'A continuación, ingrese el ID correspondiente de la vacuna a Registrar para dicho Tratamiento, para un total de "{amount_of_vaccines}" vacunas.\n')
-                            for c in range(amount_of_vaccines):
-                                current_id_vaccine = self.validate_integer_input(f'Vacuna N° {c+1} (ID): ')
-                                current_result = self.controller.vaccines_find(current_id_vaccine)
-                                while not current_result:
-                                    current_id_vaccine = self.validate_integer_input(f'¡ERROR!\nLa Vacuna Solicitada no Está Registrada.\nVacuna N° {c+1} (ID): ')
-                                vaccines.append(current_result)
-                        break
-                break    
-
-            owner = Client(owner_name, owner_last_name, owner_phone)
+            if self.controller.verify_treatment(treatment_name) is not None:
+                print('\nEl tratamiento Ingresado ya está Registrado. No se hará un nuevo Registro.\n')
+                treatment = self.controller.verify_treatment(treatment_name)
+            else:
+                treatment_description = self.validate_alphabetic_input('Descripción mas Detallada del Tratamiento: ')
+                treatment_duration = self.validate_integer_input('Duración Total del Tratamiento: (Días) ')
+                is_require_vaccine = '0'
+                while(is_require_vaccine.lower() != 's' or is_require_vaccine.lower() != 'n'):
+                    is_require_vaccine = input('¿El tratamiento requiere Vacunación? (S/N): ')
+                    if (is_require_vaccine.lower() == 's'):
+                        response = '0'
+                        while response.lower() != 's' or response.lower() != 'n':
+                            response = input('El tratamiento requiere mas de una Vacuna? (S/N): ')
+                            if (response.lower() == 's'):
+                                vaccines = [] #list of vaccines object type
+                                amount_of_vaccines = self.validate_integer_input('Ingrese la Cantidad Total de Vacunas necesarias para este Tratamiento: ')
+                                print('')
+                                self.controller.vaccines_petition()
+                                print(f'A continuación, ingrese el ID correspondiente de la vacuna a Registrar para dicho Tratamiento, para un total de "{amount_of_vaccines}" vacunas.\n')
+                                for c in range(amount_of_vaccines):
+                                    current_id_vaccine = self.validate_integer_input(f'Vacuna N° {c+1} (ID): ')
+                                    current_result = self.controller.vaccines_find(current_id_vaccine)
+                                    while not current_result:
+                                        current_id_vaccine = self.validate_integer_input(f'¡ERROR!\nLa Vacuna Solicitada no Está Registrada.\nVacuna N° {c+1} (ID): ')
+                                    vaccines.append(current_result)
+                            break
+                    break
+                treatment = Treatment(treatment_name, treatment_description, treatment_duration, 
+                                  None if is_require_vaccine.lower() == 'n' else is_require_vaccine)    
             reason = self.validate_alphabetic_input("Ingrese el motivo de la consulta: ")
-            breed = Breed(breed_name)
-            pet = Pet(name=pet_name, specie="Perro", breed=breed, owner=owner)
-            veterinarian = Veterinarian(veterinarian_name, "-", "General" if veterinaria_specialization == '' else veterinaria_specialization)
+            if self.controller.verify_pet(pet_name) is not None:
+                pet = self.controller.verify_pet(pet_name)
+            else:
+                pet = Pet(pet_name, pet_specie, breed, owner)
             diagnosis = Diagnosis(pet_name, diagnosis_information)
-            treatment = Treatment(treatment_name, treatment_description, treatment_duration, 
-                                  None if is_require_vaccine.lower() == 'n' else is_require_vaccine)
             self.controller.addConsult(pet, veterinarian, diagnosis, treatment, vaccines, reason)
         except Exception as e:
             print(f"Error al agregar consulta: {e}")

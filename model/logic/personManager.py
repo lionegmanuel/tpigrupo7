@@ -112,15 +112,20 @@ class PersonManager:
             if person.get_id() == id:
                 return person
         return None
-    def find_person_by_name(self, name):
+    def find_person_by_name(self, full_name):
         #name is first name
         for person in self.persons:
-            if person.get_name().lower().strip() == name.lower().strip():
+            if person.get_full_name().lower().strip() == full_name.lower().strip():
+                return person
+        return None
+    def find_person_by_first_name(self, first_name):
+        for person in self.persons:
+            if person.get_name().lower().strip() == first_name.lower().strip():
                 return person
         return None
     def display_persons(self):
         if not self.persons:
-            print('\nNo hay Personas Registradas.')
+            print('\nNo hay Personas Registradas.\n')
         else:
             print('\nListado de Personas Registradas:\n')
             for person in self.persons:

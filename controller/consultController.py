@@ -19,3 +19,13 @@ class ConsultController:
         return self.consult_manager.vaccines_petition()
     def vaccines_find(self, id):
         return self.consult_manager.vaccines_find(id)
+    def verify_client(self, full_name):
+        return self.consult_manager.verify_client(full_name)
+    def verify_treatment(self, treatment_name):
+        return self.consult_manager.verify_treatment(treatment_name)
+    def verify_breed(self, breed_name):
+        return self.consult_manager.verify_breed(breed_name)
+    def verify_veterinarian(self, vterinarian_name):
+        return self.consult_manager.verify_veterinarian(vterinarian_name)
+    def verify_pet(self, pet_name):
+        return self.consult_manager.verify_pet(pet_name)

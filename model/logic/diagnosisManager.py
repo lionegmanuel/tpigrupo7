@@ -101,7 +101,7 @@ class DiagnosisManager:
 
     def find_diagnosis(self, searched_name):
         for diagnosis in self.diagnoses:
-            if diagnosis.get_pet_name() == searched_name:
+            if diagnosis.get_pet_name().lower().strip() == searched_name.lower().strip():
                 return diagnosis
         return None
 

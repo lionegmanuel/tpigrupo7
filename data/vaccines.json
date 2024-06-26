@@ -3,5 +3,10 @@
         "id": 90,
         "name": "Sputnik",
         "applicationDate": "10102003"
+    },
+    {
+        "id": 895,
+        "name": "anticovid",
+        "applicationDate": "20/05/78"
     }
 ]

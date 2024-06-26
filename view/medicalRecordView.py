@@ -41,7 +41,9 @@ class MedicalRecordView:
 
     def add_medical_record(self):
         try:
-            pet_id = self.validate_integer_input("ID de la mascota para agregar la ficha médica: ")
+            self.pet_controller.display_pets()
+            print('Ingrese el ID de la Mascota a la cual se le Registrará la FIcha Médica.\n')
+            pet_id = self.validate_integer_input("\t=> ")
             pet = self.pet_controller.find_by_id(pet_id)
             if pet:
                 consult_date = self.validate_alphabetic_input("Fecha de la consulta (formato DD/MM/AAAA): ")

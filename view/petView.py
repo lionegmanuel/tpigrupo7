@@ -31,11 +31,19 @@ class PetView:
 
     def add_pet(self):
         try:
-            user_response = self.validate_alphabetic_input('¿Desea Asignar un ID Personalizado? (S/N)')
+            while True:
+                user_response = self.validate_alphabetic_input('¿Desea Asignar un ID Personalizado? (S/N)\n\t=> ').upper()
+                if user_response in ['S', 'N']:
+                    break
+                else:
+                    print("Respuesta inválida.\nIngrese una Respuesta Correcta.")
             if user_response.lower() == 's':
                 id = self.validate_integer_input("Ingrese el ID de la mascota: ")
             else: id = 0
             name = self.validate_alphabetic_input("Ingrese el nombre de la mascota: ")
+            if self.controller.find_by_name(name) is not None:
+                print(f'\nYa hay una Mascota con el nombre "{name}" registrada en el Sistema.\n')
+                return
             specie = self.validate_alphabetic_input("Ingrese la especie de la mascota: ")
             breed = self.validate_alphabetic_input("Ingrese la raza de la mascota: ")
             owner_name = self.validate_alphabetic_input("Ingrese el nombre del propietario: ")
@@ -56,6 +64,9 @@ class PetView:
 
     def delete_pet(self):
         try:
+            print('')
+            self.controller.display_pets()
+            print('')
             id = self.validate_integer_input("Ingrese el ID de la mascota a eliminar: ")
             self.controller.delete_pet(id)
         except ValueError:

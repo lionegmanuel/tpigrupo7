@@ -32,7 +32,7 @@ class VaccineView:
         try:
             id = self.validate_integer_input("Ingrese el ID de la vacuna: ")
             name = self.validate_alphabetic_input("Ingrese el nombre de la vacuna: ")
-            application_date = self.validate_alphabetic_input("Ingrese la fecha de aplicación (DD/MM/AAAA): ")
+            application_date = input("Ingrese la fecha de aplicación (DD/MM/AAAA): ")
             self.controller.add_vaccine(id, name, application_date)
         except ValueError:
             print("\nEntrada inválida. Intente nuevamente.\n")

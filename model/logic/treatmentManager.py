@@ -111,7 +111,7 @@ class TreatmentManager:
 
     def find_treatment_by_name(self, name: str):
         for treatment in self.treatments:
-            if treatment.get_name().strip() == name.strip():
+            if treatment.get_name().lower().strip() == name.lower().strip():
                 return treatment
         return None
 

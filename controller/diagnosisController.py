@@ -21,6 +21,6 @@ class DiagnosisController:
     def display_diagnoses(self):
         return self.diagnosis_manager.display_diagnoses()
     def find_by_id(self, id):
-        self.diagnosis_manager.find_diagnosis_by_id(id)
+        return self.diagnosis_manager.find_diagnosis_by_id(id)
     def find(self, pet_name):
         return self.diagnosis_manager.find_diagnosis(pet_name)

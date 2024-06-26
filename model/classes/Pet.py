@@ -4,8 +4,8 @@ from model.classes.Person import Person
 class Pet:
     id = 0
     def __init__(self, name: str, specie: str, breed: Breed, owner: Person, id = None):
-        if not isinstance(owner, Person):
-            raise TypeError("El propietario es un tipo de Dato Incorrecto.")
+        #if not isinstance(owner, Person):
+         #   raise TypeError("El propietario es un tipo de Dato Incorrecto.")
         if id is None:
             Pet.id+=1
             self.__id = Pet.id
@@ -57,7 +57,7 @@ class Pet:
         self.__owner = new_owner
 
     def __str__(self):
-        return f"✅ Nombre de la Mascota: {self.__name}\n\t📌 Identificación de Mascota: {self.__id}\n\t📌 Raza: {self.__breed.get_name()}\n\t📌 Dueño/a: {self.__owner.get_name()}"
+        return f"✅ Nombre de la Mascota: {self.__name}\n\t📌 Identificación de Mascota: {self.__id}\n\t📌 Raza: {self.__breed.get_name()}\n\t📌 Dueño/a: {self.__owner.get_full_name()}"
 
     def __repr__(self):
         return self.__str__()

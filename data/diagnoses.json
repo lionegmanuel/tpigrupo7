@@ -8,5 +8,10 @@
         "id": 3,
         "pet_name": "Loki Lione",
         "information": "Se le coloc\u00f3 la Pipeta"
+    },
+    {
+        "id": 4,
+        "pet_name": "Pepa",
+        "information": "falleci\u00f3 hace tiempo"
     }
 ]

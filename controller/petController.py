@@ -32,4 +32,6 @@ class PetController:
         self.pet_manager.display_pets()
     def find_by_id(self, id):
         return self.pet_manager.find_pet_by_id(id)
+    def find_by_name(self, name):
+        return self.pet_manager.find_pet_by_name(name)
 

@@ -22,5 +22,11 @@
         "name": "cha",
         "lastname": "cha",
         "type": "client"
+    },
+    {
+        "id": 20,
+        "name": "manuel",
+        "lastname": "lione",
+        "type": "client"
     }
 ]

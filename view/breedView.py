@@ -30,6 +30,9 @@ class BreedView:
     def add_breed(self):
         try:
             breed_name = self.validate_alphabetic_input('Nombre de la Raza: ')
+            if self.controller.find_breed_by_name(breed_name) is not None:
+                print(f'\nLa Raza {breed_name.upper()} ya está Registrada en el Sistema.')
+                return
             self.controller.add_breed(breed_name)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -45,6 +48,9 @@ class BreedView:
 
     def delete_breed(self):
         try:
+            print('')
+            self.controller.display_breeds()
+            print('')
             breed_id = self.validate_integer_input("ID de la raza a eliminar: ")
             self.controller.delete_breed(breed_id)
         except ValueError:

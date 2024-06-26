@@ -11,6 +11,11 @@ from model.classes.Treatment import Treatment
 from model.logic.vaccineManager import VaccineManager
 from model.classes.Breed import Breed
 from model.classes.Person import Person
+from model.logic.personManager import PersonManager
+from model.logic.treatmentManager import TreatmentManager
+from model.logic.breedManager import BreedManager
+from model.logic.petManager import PetManager
+
 
 class ConsultManager:
     def __init__(self):
@@ -20,6 +25,11 @@ class ConsultManager:
             os.makedirs(self.data_dir)
         self.consults = self.load_consults_from_file()
         self.vaccine_manager = VaccineManager()
+        self.person_manager = PersonManager()
+        self.treatment_manager = TreatmentManager()
+        self.breed_manager = BreedManager()
+        self.pet_manager = PetManager()
+
 
     def load_consults_from_file(self):
         current_consults = []
@@ -154,7 +164,7 @@ class ConsultManager:
             self.delete_consult_from_file(consult)
             print("\nConsulta eliminada correctamente.\n")
             return
-        print("\nNo se encontró la consulta.\n")
+        print("\nNo se encontró la Consulta solicitada para Eliminar.\n")
 
     def find_consult_by_id(self, consult_id):
         for consult in self.consults:
@@ -173,3 +183,13 @@ class ConsultManager:
         return self.vaccine_manager.display_vaccines()
     def vaccines_find(self, id):
         return self.vaccine_manager.find_vaccine_by_id(id)
+    def verify_client(self, full_name):
+        return self.person_manager.find_person_by_name(full_name)
+    def verify_veterinarian(self, full_name):
+        return self.person_manager.find_person_by_name(full_name)
+    def verify_treatment(self, treatment_name):
+        return self.treatment_manager.find_treatment_by_name(treatment_name)
+    def verify_breed(self, breed_name):
+        return self.breed_manager.find_breed_by_name(breed_name)
+    def verify_pet(self, pet_name):
+        return self.pet_manager.find_pet_by_name(pet_name)

@@ -115,7 +115,12 @@ class BreedManager:
             if current_breed.get_name() == breed_name:
                 return current_breed
         print(f'\nLa Raza {breed_name} no está registrada. ¿Desea Crearla?')
-        user_response = input('(S/N): ')
+        while True:
+            user_response = input('(S = Si /N = No): ').upper()
+            if user_response in ['S', 'N']:
+                break
+            else:
+                print("¡ERROR!.\nIngrese una Respuesta Válida.")
         if user_response.upper() == 'S':
             new_current_breed = Breed(breed_name)
             self.add_breed(new_current_breed)

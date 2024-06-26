@@ -19,12 +19,14 @@ class Person:
     
     def get_last_name(self):
         return self.__last_name
+    def get_full_name(self):
+        return self.__name.strip() + ' ' + self.__last_name.strip()
     
     def get_type(self):
         return self.__type
     
     def get_contact_data(self):
-        return self.__contact_data
+        return self.__contact_data if self.__contact_data is not None else '-'
     
     def set_name(self, new_name):
         self.__name = new_name
@@ -47,7 +49,7 @@ class Person:
             'id': self.__id
         }
     def __str__(self):
-        return f"✅ Nombre: {self.__name}\n✅ Apellido: {self.__last_name}\n✅ Tipo: {self.__type}\n\t📌 N° Identificador: {self.__id}"
+        return f"✅ Nombre: {self.__name}\n✅ Apellido: {self.__last_name}\n✅ Tipo: {'Cliente' if self.__type == 'client' else 'Veterinario'}\n\t📌 N° Identificador: {self.__id}"
     
     def __repr__(self):
         return f"Person(id={self.__id}, name={self.__name}, lastName={self.__last_name}, type={self.__type})"
