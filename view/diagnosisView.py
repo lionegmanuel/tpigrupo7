@@ -30,8 +30,8 @@ class DiagnosisView:
 
     def add_diagnosis(self):
         try:
-            pet_name = input("Nombre de la mascota: ")
-            information = input("Información del diagnóstico: ")
+            pet_name = self.validate_alphabetic_input("Nombre de la mascota: ")
+            information = self.validate_alphabetic_input("Información del diagnóstico: ")
             self.controller.add_diagnosis(pet_name, information)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -40,9 +40,9 @@ class DiagnosisView:
         try:
             self.controller.display_diagnoses()
             print('')
-            diagnosis_id = int(input("ID del diagnóstico a modificar: "))
-            new_name = input("Nuevo nombre de la mascota (deje en blanco para no modificar): ")
-            new_information = input("Nueva información del diagnóstico (deje en blanco para no modificar): ")
+            diagnosis_id = self.validate_integer_input("ID del diagnóstico a modificar: ")
+            new_name = self.validate_alphabetic_input("Nuevo nombre de la mascota (deje en blanco para no modificar): ")
+            new_information = self.validate_alphabetic_input("Nueva información del diagnóstico (deje en blanco para no modificar): ")
             self.controller.modify_diagnosis(diagnosis_id, new_name, new_information)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -51,7 +51,7 @@ class DiagnosisView:
         try:
             self.controller.display_diagnoses()
             print('')
-            diagnosis_id = int(input("ID del diagnóstico a eliminar: "))
+            diagnosis_id = self.validate_integer_input("ID del diagnóstico a eliminar: ")
             self.controller.delete_diagnosis(diagnosis_id)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")

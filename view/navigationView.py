@@ -31,10 +31,10 @@ class NavigationView:
 
 
     def showInvalidOptionMessage(self):
-        print("Opción inválida. Por favor, ingrese un número válido.")
+        print("\nOpción inválida. Por favor, ingrese un Número Válido.\n")
 
     def showExitMessage(self):
-        print("Sesión Finalizada.")
+        print("---SESIÓN DE EJECUCIÓN FINALIZADA---")
 
     def showMessage(self, message):
         print(message)

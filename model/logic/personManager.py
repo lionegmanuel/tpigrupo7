@@ -115,7 +115,7 @@ class PersonManager:
     def find_person_by_name(self, name):
         #name is first name
         for person in self.persons:
-            if person.get_name() == name:
+            if person.get_name().lower().strip() == name.lower().strip():
                 return person
         return None
     def display_persons(self):

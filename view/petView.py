@@ -31,35 +31,35 @@ class PetView:
 
     def add_pet(self):
         try:
-            user_response = input('¿Desea Asignar un ID Personalizado? (S/N)')
+            user_response = self.validate_alphabetic_input('¿Desea Asignar un ID Personalizado? (S/N)')
             if user_response.lower() == 's':
-                id = int(input("Ingrese el ID de la mascota: "))
+                id = self.validate_integer_input("Ingrese el ID de la mascota: ")
             else: id = 0
-            name = input("Ingrese el nombre de la mascota: ")
-            specie = input("Ingrese la especie de la mascota: ")
-            breed = input("Ingrese la raza de la mascota: ")
-            owner_name = input("Ingrese el nombre del propietario: ")
-            owner_lastname = input("Ingrese el apellido del propietario: ")
+            name = self.validate_alphabetic_input("Ingrese el nombre de la mascota: ")
+            specie = self.validate_alphabetic_input("Ingrese la especie de la mascota: ")
+            breed = self.validate_alphabetic_input("Ingrese la raza de la mascota: ")
+            owner_name = self.validate_alphabetic_input("Ingrese el nombre del propietario: ")
+            owner_lastname = self.validate_alphabetic_input("Ingrese el apellido del propietario: ")
             self.controller.add_pet(id, name, specie, breed, owner_name, owner_lastname)
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
 
     def modify_pet(self):
         try:
-            id = int(input("Ingrese el ID de la mascota a modificar: "))
-            new_name = input("Ingrese el nuevo nombre de la mascota: ")
-            new_specie = input("Ingrese la nueva especie de la mascota: ")
-            new_breed = input("Ingrese la nueva raza de la mascota: ")
+            id = self.validate_integer_input("Ingrese el ID de la mascota a modificar: ")
+            new_name = self.validate_alphabetic_input("Ingrese el nuevo nombre de la mascota: ")
+            new_specie = self.validate_alphabetic_input("Ingrese la nueva especie de la mascota: ")
+            new_breed = self.validate_alphabetic_input("Ingrese la nueva raza de la mascota: ")
             self.controller.modify_pet(id, new_name, new_specie, new_breed)
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
 
     def delete_pet(self):
         try:
-            id = int(input("Ingrese el ID de la mascota a eliminar: "))
+            id = self.validate_integer_input("Ingrese el ID de la mascota a eliminar: ")
             self.controller.delete_pet(id)
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
 
     def display_pets(self):
         self.controller.display_pets()

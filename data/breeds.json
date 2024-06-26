@@ -10,5 +10,9 @@
     {
         "name": "Chow Chow",
         "id": 3
+    },
+    {
+        "name": "Pincher",
+        "id": 4
     }
 ]

@@ -12,7 +12,7 @@ class ConsultView:
 
     def show_main_menu(self):
         while True:
-            print("\n-- Gestión de Consultas --")
+            print("\n---Gestión de Consultas---")
             print("1. Agregar Consulta")
             print("2. Buscar Consulta por ID")
             print("3. Eliminar Consulta")

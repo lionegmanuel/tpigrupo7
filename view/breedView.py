@@ -29,7 +29,7 @@ class BreedView:
 
     def add_breed(self):
         try:
-            breed_name = input('Nombre de la Raza: ')
+            breed_name = self.validate_alphabetic_input('Nombre de la Raza: ')
             self.controller.add_breed(breed_name)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -38,7 +38,7 @@ class BreedView:
         try:
             self.controller.display_breeds()
             breed_id = self.validate_integer_input("ID de la raza a modificar: ")
-            new_name = input("Nuevo nombre de la raza: ")
+            new_name = self.validate_alphabetic_input("Nuevo nombre de la raza: ")
             self.controller.modify_breed(breed_id, new_name)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")

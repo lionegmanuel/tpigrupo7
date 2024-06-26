@@ -122,6 +122,6 @@ class BreedManager:
             return new_current_breed
     def find_breed_by_name(self, name):
         for breed in self.breeds:
-            if breed.get_name() == name:
+            if breed.get_name().lower().strip() == name.lower().strip():
                 return breed
         return None

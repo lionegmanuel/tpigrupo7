@@ -41,19 +41,19 @@ class MedicalRecordView:
 
     def add_medical_record(self):
         try:
-            pet_id = int(input("ID de la mascota para agregar la ficha médica: "))
+            pet_id = self.validate_integer_input("ID de la mascota para agregar la ficha médica: ")
             pet = self.pet_controller.find_by_id(pet_id)
             if pet:
-                consult_date = input("Fecha de la consulta (formato DD/MM/AAAA): ")
-                diagnosis = input("Diagnóstico (Descripción): ")
+                consult_date = self.validate_alphabetic_input("Fecha de la consulta (formato DD/MM/AAAA): ")
+                diagnosis = self.validate_alphabetic_input("Diagnóstico (Descripción): ")
                 self.diagnosis_controller.add_diagnosis(pet.get_name(), diagnosis)
                 treatment_register = False
                 print('---')
                 treatments = self.treatment_controller.display_treatments()
                 if treatments:
-                    current_select = input('¿Desea Seleccionar un Tratamiento Registrado? (S/N)\n\t¡En caso de indicar que no, se procederá con el registro de un tratamiento nuevo: ')
+                    current_select = self.validate_alphabetic_input('¿Desea Seleccionar un Tratamiento Registrado? (S/N)\n\t¡En caso de indicar que no, se procederá con el registro de un tratamiento nuevo: ')
                     if current_select.lower() == 's':
-                        treatment_id = int(input("ID del tratamiento a asignar: "))
+                        treatment_id = self.validate_integer_input("ID del tratamiento a asignar: ")
                         new_treatment = self.treatment_controller.find_by_id(treatment_id) if treatment_id else None
                     else: treatment_register = True
                 else: treatment_register = True
@@ -63,29 +63,29 @@ class MedicalRecordView:
                     current_diagnosis = self.diagnosis_controller.find(pet.get_name())
                 self.medical_record_controller.add_medical_record(pet, consult_date, current_diagnosis, new_treatment)
             else:
-                print("No se encontró la mascota con el ID especificado.")
+                print("\nNo se encontró la mascota con el ID especificado.\n")
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
 
     def find_medical_record_by_id(self):
         try:
-            record_id = int(input("ID de la ficha médica a buscar: "))
+            record_id = self.validate_integer_input("ID de la ficha médica a buscar: ")
             record = self.medical_record_controller.find_medical_record(record_id)
             if record:
                 print('\nResultado:\n')
                 print(record)
             else: print('\nLa Ficha Médica Solicitada no fue Encontrada. ')
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
 
     def display_all_medical_records(self):
         try:
             self.medical_record_controller.display_medical_records()
         except ValueError:
-            print('Error al Listar las Fichas Médicas.')
+            print('\nError al Listar las Fichas Médicas.\n')
     def display_medical_records_by_pet(self):
         try:
-            pet_id = int(input("ID de la mascota para mostrar sus fichas médicas: "))
+            pet_id = self.validate_integer_input("ID de la mascota para mostrar sus fichas médicas: ")
             pet = self.pet_controller.find_by_id(pet_id)
             if pet:
                 pet_records = self.medical_record_controller.get_pet_medical_records(pet)
@@ -98,16 +98,16 @@ class MedicalRecordView:
             else:
                 print("\nNo se encontró la Mascota Buscada.\n")
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
     def delete_medical_record(self):
         try:
             print('')
             self.medical_record_controller.display_medical_records()
-            id = int(input('\nIngrese el ID de la Ficha Médica a Eliminar: '))
+            id = self.validate_integer_input('\nIngrese el ID de la Ficha Médica a Eliminar: ')
             self.medical_record_controller.delete_medical_record(id)
 
         except ValueError:
-            print("Entrada inválida. Intente nuevamente.")
+            print("\nEntrada inválida. Intente nuevamente.\n")
     def validate_integer_input(self, prompt):
             while True:
                 try:

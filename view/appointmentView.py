@@ -32,8 +32,8 @@ class AppointmentView:
         try:
             pet_id = self.validate_integer_input(input("ID de la mascota para agendar una cita: "))
             client_id = self.validate_integer_input(input("ID del cliente para agendar la cita: "))
-            date = input("Fecha de la cita (formato DD/MM/AAAA): ")
-            hour = input("Hora de la cita (formato HH:MM): ")
+            date = self.validate_alphabetic_input("Fecha de la cita (formato DD/MM/AAAA): ")
+            hour = self.validate_alphabetic_inpu("Hora de la cita (formato HH:MM): ")
             self.controller.add_appointment(pet_id, client_id, date, hour)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -41,8 +41,8 @@ class AppointmentView:
     def modify_appointment(self):
         try:
             appointment_id = self.validate_integer_input(input("ID de la cita a modificar: "))
-            new_date = input("Nueva fecha de la cita (formato DD/MM/AAAA): ")
-            new_hour = input("Nueva hora de la cita (formato HH:MM): ")
+            new_date = self.validate_alphabetic_inpu("Nueva fecha de la cita (formato DD/MM/AAAA): ")
+            new_hour = self.validate_alphabetic_inpu("Nueva hora de la cita (formato HH:MM): ")
             self.controller.modify_appointment(appointment_id, new_date, new_hour)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -57,7 +57,7 @@ class AppointmentView:
     def display_all_appointments(self):
         appointments =  self.controller.get_all_appointments()
         if not appointments:
-            print("No hay citas registradas.")
+            print("\nNo hay citas registradas.\n")
         else:
             print("\nListado de Citas:")
             for appointment in appointments:

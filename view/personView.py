@@ -29,9 +29,9 @@ class PersonView:
 
     def add_person(self):
         try:
-            person_name = input("Nombre de la nueva persona: ")
-            person_lastname = input("Apellido de la nueva persona: ")
-            type_of_person = input("Tipo de Persona (Cliente / Veterinario): ")
+            person_name = self.validate_alphabetic_input("Nombre de la nueva persona: ")
+            person_lastname = self.validate_alphabetic_input("Apellido de la nueva persona: ")
+            type_of_person = self.validate_alphabetic_input("Tipo de Persona (Cliente / Veterinario): ")
             if type_of_person.lower() == 'cliente': type_of_person = 'client'
             elif type_of_person.lower() == 'veterinario': type_of_person = 'veterinarian'
             else: type_of_person = ''
@@ -43,9 +43,9 @@ class PersonView:
         try:
             self.controller.display_persons()
             print('')
-            person_id = int(input("ID de la persona a modificar: "))
-            new_name = input("Nuevo nombre de la persona: ")
-            new_lastname = input("Nuevo apellido de la persona: ")
+            person_id = self.validate_integer_input("ID de la persona a modificar: ")
+            new_name = self.validate_alphabetic_input("Nuevo nombre de la persona: ")
+            new_lastname = self.validate_alphabetic_input("Nuevo apellido de la persona: ")
             self.controller.modify_person(person_id, new_name, new_lastname)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
@@ -54,7 +54,7 @@ class PersonView:
         try:
             self.controller.display_persons()
             print('')
-            person_id = int(input("¿Qué Persona es la que Desea Eliminar?\n\tID: "))
+            person_id = self.validate_integer_input("¿Qué Persona es la que Desea Eliminar?\n\tID: ")
             self.controller.delete_person(person_id)
         except ValueError:
             print("Entrada inválida. Intente nuevamente.")
